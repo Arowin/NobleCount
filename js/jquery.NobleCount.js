@@ -299,6 +299,28 @@
 				return false;
 			} 
 		});
+		
+		//Allow updating the count externally to the plugin
+		$(t_obj).on("nobleCount.Update", function (e) {
+			event_internals(t_obj, char_area, c_settings, max_char, false);
+
+			// to block text entry, return false
+			if (check_block_negative(e, t_obj, c_settings, max_char) == false) {
+				return false;
+			}
+		});
+		
+		//Make sure to include the paste event as well
+		$(t_obj).on("paste", function (e) {
+			setTimeout(function () {
+				event_internals(t_obj, char_area, c_settings, max_char, false);
+
+				// to block text entry, return false
+				if (check_block_negative(e, t_obj, c_settings, max_char) == false) {
+					return false;
+				}
+			}, 100);
+		});
 	}
 
 
